@@ -1,0 +1,13 @@
+#+ method: GET
+#+ summary: gets all the activities of an execution and their dependencies.
+#+ defaults:
+#+   - exec: http://www.opmw.org/export/resource/WorkflowExecutionAccount/ACCOUNT1348629691667
+
+PREFIX opmo: <http://openprovenance.org/model/opmo#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?ep (GROUP_CONCAT(DISTINCT ?dep;SEPARATOR=', ') AS ?dependencies) from <urn:x-arq:UnionGraph>
+WHERE {
+  ?ep opmo:account ?_exec_iri.
+  ?ep prov:used/prov:wasGeneratedBy ?dep.
+}group by ?ep 

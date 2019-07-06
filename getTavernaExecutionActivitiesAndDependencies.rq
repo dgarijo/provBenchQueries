@@ -1,0 +1,15 @@
+#+ method: GET
+#+ summary: gets all the activities of an execution and their dependencies.
+#+ defaults:
+#+   - exec: http://ns.taverna.org.uk/2011/run/adbfb489-3c86-4527-b361-91e53ad16efd/
+
+PREFIX wfprov: <http://purl.org/wf4ever/wfprov#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?ta (GROUP_CONCAT(DISTINCT ?dep;SEPARATOR=', ') AS ?dependencies) from <urn:x-arq:UnionGraph>
+WHERE {
+  ?ep wfprov:wasPartOfWorkflowRun ?_exec_iri.
+  ?ep wfprov:describedByProcess ?ta.
+  ?ep prov:used/prov:wasGeneratedBy ?depe.
+  ?depe wfprov:describedByProcess ?dep.
+}group by ?ta 

@@ -1,0 +1,10 @@
+#+ method: GET
+#+ summary: Query that retrieves all workflow templates.
+
+PREFIX wfprov: <http://purl.org/wf4ever/wfprov#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT distinct ?templ from <urn:x-arq:UnionGraph>
+WHERE {
+  ?exec wfprov:describedByWorkflow ?templ.
+}

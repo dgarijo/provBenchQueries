@@ -1,0 +1,11 @@
+#+ method: GET
+#+ summary: Query that retrieves all workflow templates and their label.
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+
+SELECT ?template ?label from <urn:x-arq:UnionGraph>
+WHERE {
+  ?template a prov:Plan.
+  ?template rdfs:label ?label
+}

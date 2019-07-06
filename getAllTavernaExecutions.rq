@@ -1,0 +1,9 @@
+#+ method: GET
+#+ summary: Query that retrieves all taverna executions 
+
+PREFIX wfprov: <http://purl.org/wf4ever/wfprov#>
+
+SELECT distinct ?exec from <urn:x-arq:UnionGraph>
+WHERE {
+  ?exec a wfprov:WorkflowRun.
+}
